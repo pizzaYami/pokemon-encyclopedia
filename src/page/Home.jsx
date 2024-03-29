@@ -21,7 +21,7 @@ function Home() {
   return (
     <Container>
       {pokemonList?.map((item) => (
-        <PokemonCard item={item} />
+        <PokemonCard key={item.id} item={item} />
       ))}
     </Container>
   );
@@ -30,7 +30,9 @@ function Home() {
 export default Home;
 
 const Container = styled.div`
-  width: 100%;
-  height: 100vh;
-  padding: 0 40px;
+  margin: 40px 40px 0;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
 `;
