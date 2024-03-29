@@ -1,12 +1,13 @@
 import { faCircleUser } from "@fortawesome/free-regular-svg-icons";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faSearch, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 function NavBar(authenticate, setAuthenticate) {
   const navigate = useNavigate();
+  const [isMenu, setIsMenu] = useState(false);
   const menuList = [
     "새소식",
     "제품정보",
@@ -20,7 +21,7 @@ function NavBar(authenticate, setAuthenticate) {
     if (e.key === "Enter") {
       let keyword = e.target.value;
       console.log(keyword);
-      navigate(`/?q=${keyword}`);
+      navigate(`/?q=name:${keyword}`);
     }
   };
 
@@ -33,11 +34,35 @@ function NavBar(authenticate, setAuthenticate) {
           navigate("/");
         }}
       />
+      <FontAwesomeIcon
+        icon={faXmark}
+        size="2x"
+        className="exit"
+        onClick={() => {
+          setIsMenu((prev) => !prev);
+        }}
+      />
       <MenuBar>
         {menuList.map((item) => (
           <li key={item}>{item}</li>
         ))}
       </MenuBar>
+
+      <MenuContainer isMenu={isMenu}>
+        <FontAwesomeIcon
+          icon={faXmark}
+          size="2x"
+          onClick={() => {
+            setIsMenu((prv) => !prv);
+          }}
+          className="exit"
+        />
+        <ul>
+          {menuList.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+      </MenuContainer>
 
       <SearchBar>
         <FontAwesomeIcon icon={faSearch} />
@@ -72,6 +97,12 @@ const Container = styled.div`
   padding: 20px;
   img {
     cursor: pointer;
+    @media screen and (max-width: 991px) {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
   }
 `;
 
@@ -80,6 +111,9 @@ const MenuBar = styled.ul`
   gap: 20px;
   li {
     cursor: pointer;
+  }
+  @media screen and (max-width: 800px) {
+    display: none;
   }
 `;
 
@@ -105,5 +139,36 @@ const SearchBar = styled.div`
     width: 80px;
     border: 0;
     outline: none;
+  }
+  @media screen and (max-width: 800px) {
+    display: none;
+  }
+`;
+
+const MenuContainer = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 20px;
+  width: 200px;
+  height: 100vh;
+  background-color: #f1f198;
+  transition: transform 0.3s ease;
+  z-index: 20;
+  transform: ${(props) =>
+    props.isMenu ? "translateX(0)" : "translateX(-200px)"};
+  ul {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    gap: 10px;
+  }
+  .exit {
+    cursor: pointer;
+    position: absolute;
+    right: 20px;
+    top: 20px;
   }
 `;
