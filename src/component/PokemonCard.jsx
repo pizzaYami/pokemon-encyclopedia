@@ -4,6 +4,7 @@ import styled from "styled-components";
 
 function PokemonCard({ item }) {
   const navigate = useNavigate();
+
   return (
     <Container
       onClick={() => {
@@ -18,7 +19,7 @@ function PokemonCard({ item }) {
 export default PokemonCard;
 
 const Container = styled.div`
-  width: 20%;
+  max-width: 30%;
   &:hover {
     transition: 0.5s;
     transform: scale(1.5);
