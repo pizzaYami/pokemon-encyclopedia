@@ -77,6 +77,7 @@ function NavBar(authenticate, setAuthenticate) {
       <Login
         onClick={() => {
           navigate("/login");
+          setAuthenticate(true);
         }}
       >
         <FontAwesomeIcon icon={faCircleUser} size="2x" />
@@ -112,7 +113,7 @@ const MenuBar = styled.ul`
   li {
     cursor: pointer;
   }
-  @media screen and (max-width: 800px) {
+  @media screen and (max-width: 991px) {
     display: none;
   }
 `;
@@ -140,7 +141,7 @@ const SearchBar = styled.div`
     border: 0;
     outline: none;
   }
-  @media screen and (max-width: 800px) {
+  @media screen and (max-width: 991px) {
     display: none;
   }
 `;

@@ -11,7 +11,7 @@ function PokemonCard({ item }) {
         navigate(`/card/${item.id}`);
       }}
     >
-      <img src={item.images.small} alt="pokemon-img" />
+      <img src={item.images.large} alt="pokemon-img" />
     </Container>
   );
 }
@@ -20,10 +20,12 @@ export default PokemonCard;
 
 const Container = styled.div`
   max-width: 30%;
+  @media screen and (max-width: 991px) {
+    max-width: 100%;
+    pointer-events: none;
+  }
   &:hover {
     transition: 0.5s;
     transform: scale(1.5);
-    /* transition: transform 0.45s ease-out; */
-    /* transform: rotateX(0) rotateY(0) rotateZ(0) translateZ(200px); */
   }
 `;
