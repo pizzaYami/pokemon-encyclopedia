@@ -7,6 +7,8 @@ import { useSearchParams } from "react-router-dom";
 function Home() {
   const [pokemonList, setPokemonList] = useState();
   const [query, setQuery] = useSearchParams();
+  console.log(query);
+
   const getData = async () => {
     let searchQuery = query.get("q") || "";
     let url = `https://api.pokemontcg.io/v2/cards?q=${searchQuery}`;
@@ -17,7 +19,7 @@ function Home() {
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [query]);
 
   return (
     <Container>
